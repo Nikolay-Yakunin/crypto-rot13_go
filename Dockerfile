@@ -8,6 +8,7 @@ RUN go mod download
 COPY ./cmd/crypto-rot13 ./cmd/crypto-rot13
 COPY ./internal/crypto ./internal/crypto
 COPY ./static ./static
+COPY ./pkg/middleware ./pkg/middleware
 COPY .env .env
 
 RUN go build -o crypto-rot13 ./cmd/crypto-rot13

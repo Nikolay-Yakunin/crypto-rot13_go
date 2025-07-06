@@ -28,6 +28,8 @@ services:
       - "${PORT}:${PORT}"
     env_file:
       - .env
+    networks:
+      - monitoring 
 
 networks:
   monitoring:

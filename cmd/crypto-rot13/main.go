@@ -11,8 +11,10 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 
 	"github.com/Nikolay-Yakunin/crypto-rot13_go/internal/crypto"
+	"github.com/Nikolay-Yakunin/crypto-rot13_go/pkg/middleware"
 )
 
 // TODO: Prometheus metrics
@@ -52,6 +54,10 @@ func setupRouter() *gin.Engine {
 	// Миддлвар для CORS
 	r.Use(cors.New(corsInit()))
 
+	// Миддлвар для метрик Prometheus
+	middleware.PrometheusInit()
+	r.Use(middleware.TrackMetrics())
+
 	// Эндпоинт для проверки запуска
 	r.GET("/", func(c *gin.Context) {
 		c.String(http.StatusOK, "crypto-rot13_go is running")
@@ -70,6 +76,8 @@ func setupRouter() *gin.Engine {
 			"go version":     runtime.Version(),
 		})
 	})
+
+	r.GET("/metrics", gin.WrapH(promhttp.Handler()))
 
 	apiv1 := r.Group("/api/v1")
 
