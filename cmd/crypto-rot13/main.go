@@ -8,6 +8,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// TODO: CORS
+// TODO: Prometheus metrics
+// TODO: Logging
+
 func setupRouter() *gin.Engine {
 	r := gin.Default()
 	// Тут бы корс добавить
