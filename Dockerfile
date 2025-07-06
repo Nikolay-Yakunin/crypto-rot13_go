@@ -6,7 +6,7 @@ COPY go.mod go.sum ./
 RUN go mod download
 
 COPY ./cmd/crypto-rot13 ./cmd/crypto-rot13
-COPY ./internal/rot13 ./internal/rot13
+COPY ./internal/crypto ./internal/crypto
 COPY ./static ./static
 COPY .env .env
 

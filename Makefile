@@ -4,6 +4,8 @@ LD_FLAGS="-X main.Version=1.0.0 -X main.Commit=$(shell git rev-parse --short HEA
 BIN=crypto-rot13
 CMD=cmd/crypto-rot13/main.go
 
+PORT ?= $(shell [ -f .env ] && grep -E '^PORT=' .env | cut -d '=' -f2 || echo 8080)
+
 all: build
 
 build:
