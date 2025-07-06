@@ -1,7 +1,5 @@
 CC=go
-LD_FLAGS=-X main.Version=1.0.0 \
-         -X main.Commit=$(shell git rev-parse --short HEAD) \
-         -X main.BuildTime=$(shell date +%FT%T)
+LD_FLAGS="-X main.Version=1.0.0 -X main.Commit=$(shell git rev-parse --short HEAD) -X main.BuildTime=$(shell date +%FT%T)"
 
 BIN=crypto-rot13
 CMD=cmd/crypto-rot13/main.go

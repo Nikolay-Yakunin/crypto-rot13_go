@@ -11,6 +11,8 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
+
+	"github.com/Nikolay-Yakunin/crypto-rot13_go/internal/crypto"
 )
 
 // TODO: Prometheus metrics
@@ -68,6 +70,11 @@ func setupRouter() *gin.Engine {
 			"go version":     runtime.Version(),
 		})
 	})
+
+	apiv1 := r.Group("/api/v1")
+
+	// Crypto handler
+	apiv1.POST("/crypto", crypto.CryptoHandler)
 
 	return r
 }
