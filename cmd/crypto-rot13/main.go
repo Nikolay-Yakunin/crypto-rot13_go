@@ -1,12 +1,12 @@
 package main
 
 import (
+	"log"
 	"net/http"
 	"os"
 	"runtime"
 	"strings"
 	"time"
-	"log"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -47,12 +47,15 @@ func corsInit() cors.Config {
 func setupRouter() *gin.Engine {
 	r := gin.Default()
 
+	// Миддлвар для CORS
 	r.Use(cors.New(corsInit()))
 
+	// Эндпоинт для проверки запуска
 	r.GET("/", func(c *gin.Context) {
 		c.String(http.StatusOK, "crypto-rot13_go is running")
 	})
 
+	// Эндпоинт чисто для проверки работы
 	r.GET("/status", func(c *gin.Context) {
 		var memStats runtime.MemStats
 		runtime.ReadMemStats(&memStats)
@@ -70,13 +73,19 @@ func setupRouter() *gin.Engine {
 }
 
 func main() {
-	_ = godotenv.Load()
+	// Env
+	if err := godotenv.Load(); err != nil {
+		log.Printf("Error loading .env file: %v", err)
+	}
+
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
 	}
+
 	r := setupRouter()
+
 	if err := r.Run(":" + port); err != nil {
-        log.Fatalf("Server failed: %v", err)
-    }
+		log.Fatalf("Server failed: %v", err)
+	}
 }
