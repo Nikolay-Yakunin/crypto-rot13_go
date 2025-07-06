@@ -15,4 +15,4 @@ Mode   string `json:"mode" binding:"required,oneof=encrypt decrypt"`
 
 # License
 
-Mit Licence
+MIT License
