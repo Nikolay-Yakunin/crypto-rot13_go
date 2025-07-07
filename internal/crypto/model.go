@@ -10,3 +10,5 @@ type Service interface {
 	EncryptText() (string, error)
 	DecryptText() (string, error)
 }
+
+var validMethods = []string{"rot13"}

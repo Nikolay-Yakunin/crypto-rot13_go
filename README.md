@@ -7,14 +7,18 @@ REST API на Go для шифрования и дешифровки текст�
 ## Endpoints
 
 ### POST /api/v1/crypto
-**method** - можно получить по /api/v1/crypto/methods (Пока не реализованно)
+**method** - можно получить по /api/v1/crypto/methods
 **mode** - **'encrypt'** для расшифровки, **'decrypt'** для шифрования.
 
 ```go
 Method string `json:"method" binding:"required"`
 Mode   string `json:"mode" binding:"required,oneof=encrypt decrypt"`
 ```
-**/api/v1/crypto?=crypto?method=method3&mode=mode**
+Пример:
+```
+POST api/v1/crypt?method=rot13&mode=encrypt
+GET api/v1/crypt/methods
+```
 
 # License
 

@@ -7,7 +7,24 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func CryptoHandler(c *gin.Context) {
+func CryptoHandler(r *gin.RouterGroup) {
+	r.Use(func(c *gin.Context) {
+		c.Request.Body = http.MaxBytesReader(c.Writer, c.Request.Body, 1<<20) // 1 МБ
+		c.Next()
+	})
+
+	r.GET("/crypt/methods", MethodHandler)
+	r.POST("/crypt", CryptHandler)
+}
+
+func MethodHandler(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{
+		"methods": validMethods,
+		"modes":   []string{"encrypt", "decrypt"},
+	})
+}
+
+func CryptHandler(c *gin.Context) {
 	method := c.Query("method")
 	if method == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "method is required"})

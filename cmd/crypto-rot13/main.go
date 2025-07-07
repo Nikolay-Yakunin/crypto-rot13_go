@@ -41,7 +41,7 @@ func setupRouter() *gin.Engine {
 	apiv1 := r.Group("/api/v1")
 
 	// Crypto handler
-	apiv1.POST("/crypto", crypto.CryptoHandler)
+	crypto.CryptoHandler(apiv1)
 
 	return r
 }
