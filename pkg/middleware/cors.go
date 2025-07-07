@@ -7,7 +7,6 @@ import (
 )
 
 type Cors struct {
-	cors.Config
 	Origins []string
 }
 

@@ -4,7 +4,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"runtime"
 	"strings"
 
 	"github.com/gin-contrib/cors"
@@ -35,20 +34,6 @@ func setupRouter() *gin.Engine {
 	// Эндпоинт для проверки запуска
 	r.GET("/", func(c *gin.Context) {
 		c.String(http.StatusOK, "crypto-rot13_go is running")
-	})
-
-	// Эндпоинт чисто для проверки работы
-	r.GET("/status", func(c *gin.Context) {
-		var memStats runtime.MemStats
-		runtime.ReadMemStats(&memStats)
-		c.JSON(http.StatusOK, gin.H{
-			"sys time":       memStats.Sys,
-			"alloc":          memStats.Alloc,
-			"total alloc":    memStats.TotalAlloc,
-			"num goroutines": runtime.NumGoroutine(),
-			"cpu":            runtime.NumCPU(),
-			"go version":     runtime.Version(),
-		})
 	})
 
 	r.GET("/metrics", gin.WrapH(promhttp.Handler()))
