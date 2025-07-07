@@ -16,7 +16,7 @@ import (
 )
 
 func setupMiddleware(r *gin.Engine) {
-	c := middleware.Cors{
+	c := middleware.CorsConfig{
 		Origins: strings.Split(os.Getenv("CORS_ORIGINS"), ","),
 	}
 	r.Use(cors.New(c.CorsInit()))
