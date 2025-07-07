@@ -2,7 +2,6 @@ package crypto
 
 import (
 	"fmt"
-	"strings"
 )
 
 func CryptoService(c *Crypto) (string, error) {
@@ -27,7 +26,7 @@ func (c *Crypto) encryptText() (string, error) {
 
 	switch c.Method {
 	case "rot13":
-		return encryptRot13(c.Text), nil
+		return CryptRot13(c.Text), nil
 	default:
 		return "", fmt.Errorf("unsupported method: %s", c.Method)
 	}
@@ -40,24 +39,8 @@ func (c *Crypto) decryptText() (string, error) {
 
 	switch c.Method {
 	case "rot13":
-		return encryptRot13(c.Text), nil // ROT13 шифрование симметрично
+		return CryptRot13(c.Text), nil // ROT13 шифрование симметрично
 	default:
 		return "", fmt.Errorf("unsupported method: %s", c.Method)
 	}
-}
-
-// Нужно это перенести
-func encryptRot13(input string) string {
-	var result strings.Builder
-	for _, r := range input {
-		switch {
-		case r >= 'A' && r <= 'Z':
-			result.WriteRune('A' + (r-'A'+13)%26)
-		case r >= 'a' && r <= 'z':
-			result.WriteRune('a' + (r-'a'+13)%26)
-		default:
-			result.WriteRune(r)
-		}
-	}
-	return result.String()
 }
