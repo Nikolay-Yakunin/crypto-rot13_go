@@ -10,7 +10,7 @@ type CorsConfig struct {
 	Origins []string
 }
 
-func (c CorsConfig)CorsInit() cors.Config {
+func (c CorsConfig) CorsInit() cors.Config {
 	config := cors.DefaultConfig()
 
 	config.AllowOrigins = c.Origins
