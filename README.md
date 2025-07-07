@@ -1,4 +1,7 @@
 # crypto-rot13_go
+
+[![Go Report Card](https://goreportcard.com/badge/github.com/Nikolay-Yakunin/crypto-rot13_go)](https://goreportcard.com/report/github.com/Nikolay-Yakunin/crypto-rot13_go)
+
 REST API на Go для шифрования и дешифровки текста методом [ROT13](https://ru.wikipedia.org/wiki/ROT13) и другими методами шифрования.  
 ---
 ## Endpoints
